@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('crete/', views.create, name='create'),
-    path('(?P<pk>[0-9]+)/', views.edit, name='edit')
+    path('<int:pk>/', views.edit, name='edit')
 ]

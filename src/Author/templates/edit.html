@@ -1,0 +1,22 @@
+{% load static %}
+
+<h1>Author: {{ author }}</h1>
+
+<h3>Books:</h3>
+
+{% if books %}
+{% for book in books %}
+<ul>
+    <li>{{ book.name }} {{ book.pub_date }}</li>
+</ul>
+{% endfor %}
+{% else %}
+There are no books for this author
+{% endif %}
+
+<h3>Add book:</h3>
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="submit">
+</form>

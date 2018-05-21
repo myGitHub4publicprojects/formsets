@@ -1,0 +1,12 @@
+{% load static %}
+{% if authors %}
+    <ul>
+        {% for a in authors %}
+        <li><a href="{% url 'edit' a.id %}">{{ a }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    There are no authors yet
+{% endif %}
+<br>
+<a href="{% url 'create' %}"><button>Create new author</button></a>
