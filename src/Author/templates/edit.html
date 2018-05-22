@@ -17,6 +17,37 @@ There are no books for this author
 <h3>Add book:</h3>
 <form method="post" action="">
     {% csrf_token %}
-    {{ form }}
+    {{ formset.management_form }}
+    {% for form in formset %}
+        {{ form.as_p }}
+    {% endfor %}
+
+        <div id="third" style="display: none;">
+        <h2>Additional form:</h2>
+        <label for="id_form-2-name">Name:</label>
+        <input type="text" name="form-2-name" maxlength="120" id="id_form-2-name" />
+        <label for="id_form-2-pub_date">Pub date:</label>
+        <input type="text" name="form-2-pub_date" id="id_form-2-pub_date" />
+        </div>
+
+    <button id="addThird" type="button">add third</button>
+    <br>
     <input type="submit" value="submit">
 </form>
+
+<script>
+    document.getElementById('addThird').addEventListener('click', myFunc);
+    var allForms = document.getElementById('id_form-TOTAL_FORMS').value;
+
+    function myFunc() {
+        // hide 'add third' button
+        document.getElementById('addThird').style.display = 'none';
+
+        // show third form
+        document.getElementById('third').style.display = 'block';
+
+        // increase the value of id_form-TOTAL_FORMS
+        document.getElementById('id_form-TOTAL_FORMS').value = parseInt(allForms) + 1;
+    }
+
+</script>

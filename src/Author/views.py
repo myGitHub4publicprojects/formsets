@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Author, Book
 from .forms import AuthorForm, BookForm
 
+from django.forms.formsets import formset_factory
+
 # Create your views here.
 def home(request):
     # displays a list of authors
@@ -18,9 +20,20 @@ def create(request):
 
 def edit(request, pk):
     author = Author.objects.get(pk=pk)
-    form = BookForm(request.POST or None)
+    BookFormSet = formset_factory(BookForm, extra=2)
+
+    if request.method == "POST":
+        formset = BookFormSet(request.POST)
+        if(formset.is_valid()):
+            # do domething with forms
+            for form in formset:
+                print(form)
+                instance = form.save(commit=False)
+                instance.author = author
+                instance.save()
     context = {'author': author,
                'books': author.book_set.all(),
-               'form': form}
+               'formset': BookFormSet()
+               }
     return render(request, 'edit.html', context)
 

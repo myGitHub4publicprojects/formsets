@@ -11,4 +11,5 @@ class AuthorForm(ModelForm):
 class BookForm(ModelForm):
     class Meta:
         model = Book
-        fields = ['name']
+        # fields = ['name', 'pub_date']
+        exclude = ('author',)
