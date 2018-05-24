@@ -33,7 +33,38 @@ There are no books for this author
     <button id="addThird" type="button">add third</button>
     <br>
     <input type="submit" value="submit">
+
+
+
+     {% if form.errors %} {% for field in form %} {% for error in field.errors %}
+    <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+    <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %} {% endif %}
+
+
+    
 </form>
+
+
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
 
 <script>
     document.getElementById('addThird').addEventListener('click', myFunc);

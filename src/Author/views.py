@@ -25,12 +25,20 @@ def edit(request, pk):
     if request.method == "POST":
         formset = BookFormSet(request.POST)
         if(formset.is_valid()):
+            print('formset ok')
             # do domething with forms
             for form in formset:
-                print(form)
                 instance = form.save(commit=False)
                 instance.author = author
                 instance.save()
+        else:
+            # if formset is not valid do something else
+            print('FAULT in formset')
+            # to see which form was faulty:
+            for form in formset:
+                if not form.is_valid():
+                    print('this form was not valid: ', form.errors)
+            return redirect('home')
     context = {'author': author,
                'books': author.book_set.all(),
                'formset': BookFormSet()
