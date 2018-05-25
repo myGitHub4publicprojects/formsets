@@ -28,6 +28,8 @@ def edit(request, pk):
             print('formset ok')
             # do domething with forms
             for form in formset:
+                print(form.cleaned_data['name'],
+                      ' = ', form.cleaned_data['pub_date'])
                 instance = form.save(commit=False)
                 instance.author = author
                 instance.save()
